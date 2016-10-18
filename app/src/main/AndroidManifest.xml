@@ -10,9 +10,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name=".SearchActivity"
+            android:name=".activities.SearchActivity"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,15 +20,23 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".ForecastActivity"
+            android:name=".activities.CurrentWeatherActivity"
             android:label="@string/title_activity_forecast"
-            android:parentActivityName=".SearchActivity"
+            android:parentActivityName=".activities.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="hr.karlovrbic.weatherapp.SearchActivity"/>
+                android:value="hr.karlovrbic.weatherapp.activities.SearchActivity"/>
+        </activity>
+        <activity
+            android:name=".activities.ForecastActivity"
+            android:label="@string/title_activity_forecast"
+            android:parentActivityName=".activities.CurrentWeatherActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="hr.karlovrbic.weatherapp.activities.CurrentWeatherActivity"/>
         </activity>
     </application>
 

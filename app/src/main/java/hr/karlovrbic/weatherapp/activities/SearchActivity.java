@@ -1,4 +1,4 @@
-package hr.karlovrbic.weatherapp;
+package hr.karlovrbic.weatherapp.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hr.karlovrbic.weatherapp.R;
 import hr.karlovrbic.weatherapp.model.City;
 import hr.karlovrbic.weatherapp.mvp.interfaces.ISearch;
 import hr.karlovrbic.weatherapp.mvp.presenters.SearchPresenter;
@@ -100,7 +101,7 @@ public class SearchActivity extends AppCompatActivity implements ISearch.View {
         Bundle extras = new Bundle();
         extras.putParcelable(CITY_EXTRAS_KEY, city);
 
-        Intent intent = ForecastActivity.buildIntent(this);
+        Intent intent = CurrentWeatherActivity.buildIntent(this);
         intent.putExtras(extras);
         startActivity(intent);
     }

@@ -11,32 +11,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="hr.karlovrbic.weatherapp.ForecastActivity"
-    tools:showIn="@layout/activity_forecast"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:gravity="center"
-        android:text="Current weather"/>
-
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
-
-    <include
-        android:id="@+id/forecast_wb_current_weather"
-        layout="@layout/weather_box"/>
+    tools:context="hr.karlovrbic.weatherapp.activities.ForecastActivity"
+    android:orientation="vertical"
+    tools:showIn="@layout/activity_forecast">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="Forecast for the next 3 days"/>
 
     <android.support.v7.widget.RecyclerView
@@ -45,5 +28,4 @@
         android:layout_height="wrap_content"
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/weather_box"/>
-
 </LinearLayout>
