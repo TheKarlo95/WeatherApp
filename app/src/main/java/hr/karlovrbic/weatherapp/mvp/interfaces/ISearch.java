@@ -12,18 +12,18 @@ public interface ISearch {
     interface View extends IBase.View {
         void onSearchClick();
 
+        void startForecastActivity(City city);
+
         void displayCityInputError();
 
         void setCityInputText(String city);
 
         void setCountryInputText(String country);
-
-        void startForecastActivity(City city);
     }
 
     interface Presenter extends IBase.Presenter {
         void init(Bundle savedInstanceState);
 
-        void getForecast(String cityName, String countryName);
+        void showForecast(String cityName, String countryName);
     }
 }
