@@ -44,7 +44,7 @@ public class SearchPresenter implements ISearch.Presenter {
     }
 
     @Override
-    public void getForecast(String cityName, String countryName) {
+    public void showForecast(String cityName, String countryName) {
         if (validateCityInput(cityName)) {
             Country country = null;
             if(countryName != null && !countryName.isEmpty()) {
