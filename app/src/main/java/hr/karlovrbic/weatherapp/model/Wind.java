@@ -68,6 +68,14 @@ public class Wind implements Parcelable {
         return degrees;
     }
 
+    public String getDegreesString() {
+        if (degrees == null) {
+            return null;
+        } else {
+            return NUMBER_FORMAT.format(degrees) + "\u00B0";
+        }
+    }
+
     public enum Unit {
         METER_PER_SECOND("m/s", new Func1<Double, Double>() {
             @Override
