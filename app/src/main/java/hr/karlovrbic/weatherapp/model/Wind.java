@@ -53,12 +53,20 @@ public class Wind implements Parcelable {
         return unit.getConverter().call(speed);
     }
 
+    public String getSpeedString(Unit unit) {
+        if (speed == null) {
+            return null;
+        } else {
+            return String.valueOf(getSpeed(unit)) + unit.getSign();
+        }
+    }
+
     public Double getDegrees() {
         return degrees;
     }
 
     public enum Unit {
-        METER_PER_SECOND(new Func1<Double, Double>() {
+        METER_PER_SECOND("m/s", new Func1<Double, Double>() {
             @Override
             public Double call(Double input) {
                 if (input == null) {
@@ -68,7 +76,7 @@ public class Wind implements Parcelable {
                 }
             }
         }),
-        MILES_PER_HOUR(new Func1<Double, Double>() {
+        MILES_PER_HOUR("mph", new Func1<Double, Double>() {
             @Override
             public Double call(Double input) {
                 if (input == null) {
@@ -93,10 +101,17 @@ public class Wind implements Parcelable {
             }
         }
 
+        private String sign;
         private Func1<Double, Double> converter;
 
-        Unit(Func1 function) {
-            this.converter = function;
+        Unit(String sign, Func1<Double, Double> converter) {
+
+            this.sign = sign;
+            this.converter = converter;
+        }
+
+        public String getSign() {
+            return sign;
         }
 
         public Func1<Double, Double> getConverter() {
