@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.NumberFormat;
 import java.util.Locale;
 
 import rx.functions.Func1;
@@ -25,6 +26,8 @@ public class Temperature implements Parcelable {
             return new Temperature[size];
         }
     };
+
+    private static final NumberFormat NUMBER_FORMAT = NumberFormat.getNumberInstance();
 
     private Double current;
     private Double min;
@@ -86,7 +89,7 @@ public class Temperature implements Parcelable {
         if (current == null) {
             return null;
         } else {
-            return String.valueOf(getCurrent(unit)) + unit.getSign();
+            return NUMBER_FORMAT.format(getCurrent(unit)) + unit.getSign();
         }
     }
 
@@ -94,7 +97,7 @@ public class Temperature implements Parcelable {
         if (max == null) {
             return null;
         } else {
-            return String.valueOf(getMax(unit)) + unit.getSign();
+            return NUMBER_FORMAT.format(getMax(unit)) + unit.getSign();
         }
     }
 
@@ -102,7 +105,7 @@ public class Temperature implements Parcelable {
         if (min == null) {
             return null;
         } else {
-            return String.valueOf(getMin(unit)) + unit.getSign();
+            return NUMBER_FORMAT.format(getMin(unit)) + unit.getSign();
         }
     }
 
