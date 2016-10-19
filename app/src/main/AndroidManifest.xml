@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.CurrentWeatherActivity"
+            android:name=".activities.ForecastActivity"
             android:label="@string/title_activity_forecast"
             android:parentActivityName=".activities.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -30,13 +30,10 @@
                 android:value="hr.karlovrbic.weatherapp.activities.SearchActivity"/>
         </activity>
         <activity
-            android:name=".activities.ForecastActivity"
-            android:label="@string/title_activity_forecast"
-            android:parentActivityName=".activities.CurrentWeatherActivity"
+            android:name=".activities.YoutubeVideoActivity"
+            android:label="@string/title_activity_youtube_video"
+            android:parentActivityName=".activities.ForecastActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="hr.karlovrbic.weatherapp.activities.CurrentWeatherActivity"/>
         </activity>
     </application>
 
