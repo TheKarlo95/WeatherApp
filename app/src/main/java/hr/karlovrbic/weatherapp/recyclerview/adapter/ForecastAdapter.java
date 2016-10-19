@@ -94,6 +94,8 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         TextView tvTempMin;
         @BindView(R.id.weather_box_tv_temperature_current_value)
         TextView tvTempCurrent;
+        @BindView(R.id.weather_box_tv_temperature_current_label)
+        TextView tvTempCurrentLabel;
 
         @BindView(R.id.weather_box_tv_wind_speed_value)
         TextView tvWindSpeed;
@@ -129,8 +131,13 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
                 if (iconLink != null) {
                     Glide.with(context)
                             .load(iconLink)
-                            .dontAnimate()
+                            .crossFade()
+                            .error(R.drawable.weather_icon_error)
+                            .placeholder(R.drawable.weather_icon_placeholder)
                             .into(ivIcon);
+                } else {
+                    Glide.clear(ivIcon);
+                    ivIcon.setImageDrawable(null);
                 }
                 if (date != null) {
                     tvDate.setText(DATE_FORMAT.format(date));
@@ -148,7 +155,12 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
                     tvTempMin.setText(tempMin);
                 }
                 if (tempCur != null) {
+                    tvTempCurrentLabel.setVisibility(View.VISIBLE);
+                    tvTempCurrent.setVisibility(View.VISIBLE);
                     tvTempCurrent.setText(tempCur);
+                } else {
+                    tvTempCurrentLabel.setVisibility(View.GONE);
+                    tvTempCurrent.setVisibility(View.GONE);
                 }
                 if (windSpeed != null) {
                     tvWindSpeed.setText(windSpeed);
