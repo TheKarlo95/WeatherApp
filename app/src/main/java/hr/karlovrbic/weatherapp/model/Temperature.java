@@ -82,8 +82,32 @@ public class Temperature implements Parcelable {
         return getMax(Unit.CELSIUS);
     }
 
+    public String getCurrentString(Unit unit) {
+        if (current == null) {
+            return null;
+        } else {
+            return String.valueOf(getCurrent(unit)) + unit.getSign();
+        }
+    }
+
+    public String getMaxString(Unit unit) {
+        if (max == null) {
+            return null;
+        } else {
+            return String.valueOf(getMax(unit)) + unit.getSign();
+        }
+    }
+
+    public String getMinString(Unit unit) {
+        if (min == null) {
+            return null;
+        } else {
+            return String.valueOf(getMin(unit)) + unit.getSign();
+        }
+    }
+
     public enum Unit {
-        KELVIN(new Func1<Double, Double>() {
+        KELVIN("K", new Func1<Double, Double>() {
             @Override
             public Double call(Double input) {
                 if (input == null) {
@@ -93,7 +117,7 @@ public class Temperature implements Parcelable {
                 }
             }
         }),
-        CELSIUS(new Func1<Double, Double>() {
+        CELSIUS("\u2103", new Func1<Double, Double>() {
             @Override
             public Double call(Double input) {
                 if (input == null) {
@@ -103,7 +127,7 @@ public class Temperature implements Parcelable {
                 }
             }
         }),
-        FAHRENHEIT(new Func1<Double, Double>() {
+        FAHRENHEIT("\u2109", new Func1<Double, Double>() {
             @Override
             public Double call(Double input) {
                 if (input == null) {
@@ -128,10 +152,16 @@ public class Temperature implements Parcelable {
             }
         }
 
+        private String sign;
         private Func1<Double, Double> converter;
 
-        Unit(Func1 function) {
+        Unit(String sign, Func1 function) {
+            this.sign = sign;
             this.converter = function;
+        }
+
+        public String getSign() {
+            return sign;
         }
 
         public Func1<Double, Double> getConverter() {
