@@ -81,11 +81,13 @@ public class City implements Parcelable {
 
     @Override
     public String toString() {
-        return "City{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", country=" + country +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append(name);
+        if (country != null) {
+            sb.append(", ");
+            sb.append(country.getName());
+        }
+        return sb.toString();
     }
 
 
