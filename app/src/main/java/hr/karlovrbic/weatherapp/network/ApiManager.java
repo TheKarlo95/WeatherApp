@@ -2,6 +2,10 @@ package hr.karlovrbic.weatherapp.network;
 
 import android.util.Log;
 
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -21,6 +25,10 @@ public class ApiManager {
     public static final String API_ENDPOINT = "http://api.openweathermap.org/data/2.5/";
 
     private static final WeatherService WEATHER_SERVICE;
+
+    public static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+
+    public static final JsonFactory JSON_FACTORY = new GsonFactory();
 
     static {
         Gson gson = new GsonBuilder()
