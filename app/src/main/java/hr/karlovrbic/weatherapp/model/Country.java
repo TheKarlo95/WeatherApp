@@ -2,14 +2,11 @@ package hr.karlovrbic.weatherapp.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.Locale;
-
-import hr.karlovrbic.weatherapp.utils.Strings;
 
 /**
  * Created by TheKarlo95 on 15.10.2016..
@@ -28,18 +25,12 @@ public class Country implements Parcelable {
         }
     };
 
-    @NonNull
     private String code;
-    @NonNull
     private String name;
 
     public Country(String code, String name) {
-        this.code = Strings.requireNonNullAndNonEmpty(code,
-                "Parameter code cannot be null.",
-                "Parameter code cannot be empty.");
-        this.name = Strings.requireNonNullAndNonEmpty(name,
-                "Parameter name cannot be null.",
-                "Parameter name cannot be empty.");
+        this.code = code;
+        this.name = name;
     }
 
     public Country(String code) {
