@@ -7,4 +7,5 @@
     <color name="secondaryText">#8A000000</color>
     <color name="hintText">#61000000</color>
     <color name="weather_box_background">#ECEFF1</color>
+    <color name="youtube_background">#DE000000</color>
 </resources>
