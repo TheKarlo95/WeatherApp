@@ -1,5 +1,7 @@
 package hr.karlovrbic.weatherapp.mvp.presenters;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import hr.karlovrbic.weatherapp.model.City;
@@ -16,7 +18,9 @@ import hr.karlovrbic.weatherapp.utils.Objects;
 
 public class ForecastPresenter implements IForecast.Presenter {
 
+    @NonNull
     private IForecast.View view;
+    @NonNull
     private IForecast.Interactor interactor;
 
     public ForecastPresenter(IForecast.View view) {
@@ -31,13 +35,15 @@ public class ForecastPresenter implements IForecast.Presenter {
 
     @Override
     public void getForecast(City city) {
+        view.showProgress();
+
         String cityName = null;
         String countryName = null;
-        if(city != null) {
+        if (city != null) {
             cityName = city.getName();
             Country country = city.getCountry();
-            if(country != null) {
-                countryName= country.getName();
+            if (country != null) {
+                countryName = country.getName();
             }
         }
 
@@ -45,11 +51,13 @@ public class ForecastPresenter implements IForecast.Presenter {
                     @Override
                     public void onSuccess(List<Forecast> result) {
                         view.setForecasts(result);
+                        view.hideProgress();
                     }
 
                     @Override
                     public void onError(String message) {
                         view.showMessage(message);
+                        view.hideProgress();
                     }
                 }
         );
@@ -58,5 +66,6 @@ public class ForecastPresenter implements IForecast.Presenter {
     @Override
     public void cancel() {
         interactor.cancel();
+        view.hideProgress();
     }
 }
