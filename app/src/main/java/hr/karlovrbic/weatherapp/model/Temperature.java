@@ -3,6 +3,8 @@ package hr.karlovrbic.weatherapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import rx.functions.Func1;
+
 /**
  * Created by TheKarlo95 on 17.10.2016..
  */
@@ -53,15 +55,66 @@ public class Temperature implements Parcelable {
         this(min, max, null);
     }
 
+    public Double getCurrent(Unit unit) {
+        return unit.getConverter().call(current);
+    }
+
     public Double getCurrent() {
-        return current;
+        return getCurrent(Unit.CELSIUS);
+    }
+
+    public Double getMin(Unit unit) {
+        return unit.getConverter().call(min);
     }
 
     public Double getMin() {
-        return min;
+        return getMin(Unit.CELSIUS);
+    }
+
+    public Double getMax(Unit unit) {
+        return unit.getConverter().call(max);
     }
 
     public Double getMax() {
-        return max;
+        return getMax(Unit.CELSIUS);
+    }
+
+    public enum Unit {
+        KELVIN(new Func1<Double, Double>() {
+            @Override
+            public Double call(Double input) {
+                return input;
+            }
+        }),
+        CELSIUS(new Func1<Double, Double>() {
+            @Override
+            public Double call(Double input) {
+                if (input == null) {
+                    return null;
+                } else {
+                    return input - 272.15;
+                }
+            }
+        }),
+        FAHRENHEIT(new Func1<Double, Double>() {
+            @Override
+            public Double call(Double input) {
+                if (input == null) {
+                    return null;
+                } else {
+                    return input * 9.0 / 5.0 - 459.67;
+                }
+            }
+        });
+
+        private Func1<Double, Double> converter;
+
+        Unit(Func1 function) {
+            this.converter = function;
+        }
+
+        public Func1<Double, Double> getConverter() {
+            return converter;
+        }
     }
 }
