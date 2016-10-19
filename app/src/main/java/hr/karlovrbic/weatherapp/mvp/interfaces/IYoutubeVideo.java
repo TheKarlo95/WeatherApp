@@ -20,6 +20,8 @@ public interface IYoutubeVideo {
         void showProgress();
 
         void hideProgress();
+
+        void goBack();
     }
 
     interface Presenter extends IBase.Presenter {

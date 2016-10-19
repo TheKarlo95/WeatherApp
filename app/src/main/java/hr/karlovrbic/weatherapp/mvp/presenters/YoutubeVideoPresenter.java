@@ -30,6 +30,7 @@ public class YoutubeVideoPresenter implements IYoutubeVideo.Presenter {
                     view.cueVideo(videoId);
                 } else {
                     view.showMessage("No videos found");
+                    view.goBack();
                 }
                 view.hideProgress();
             }
