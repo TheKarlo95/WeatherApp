@@ -1,5 +1,6 @@
 package hr.karlovrbic.weatherapp.network;
 
+import hr.karlovrbic.weatherapp.model.response.CurrentWeatherResponse;
 import hr.karlovrbic.weatherapp.model.response.ForecastsResponse;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -14,4 +15,7 @@ public interface WeatherService {
     Observable<ForecastsResponse> getForecasts(@Query("q") String cityAndCountry,
                                                @Query("cnt") String numOfDays,
                                                @Query("APPID") String apiKey);
+    @GET("weather?")
+    Observable<CurrentWeatherResponse> getCurrentWeather(@Query("q") String cityAndCountry,
+                                                         @Query("APPID") String apiKey);
 }
