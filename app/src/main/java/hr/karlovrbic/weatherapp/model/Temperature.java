@@ -1,7 +1,10 @@
 package hr.karlovrbic.weatherapp.model;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.util.Locale;
 
 import rx.functions.Func1;
 
@@ -106,6 +109,20 @@ public class Temperature implements Parcelable {
                 }
             }
         });
+
+        public static Temperature.Unit getLocaleUnit(Context context) {
+            Locale current = context.getResources().getConfiguration().locale;
+            String countryCode = current.getCountry().toUpperCase();
+
+            if (countryCode.equals("US") ||
+                    countryCode.equals("BS") ||
+                    countryCode.equals("BZ") ||
+                    countryCode.equals("KY")) {
+                return Temperature.Unit.FAHRENHEIT;
+            } else {
+                return Temperature.Unit.CELSIUS;
+            }
+        }
 
         private Func1<Double, Double> converter;
 
