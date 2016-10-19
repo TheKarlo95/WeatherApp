@@ -3,6 +3,7 @@ package hr.karlovrbic.weatherapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.NumberFormat;
 import java.util.Date;
 
 /**
@@ -21,6 +22,8 @@ public class Forecast implements Parcelable {
             return new Forecast[size];
         }
     };
+
+    private static final NumberFormat NUMBER_FORMAT = NumberFormat.getNumberInstance();
 
     private City city;
     private Date date;
@@ -73,6 +76,34 @@ public class Forecast implements Parcelable {
         dest.writeValue(this.humidity);
     }
 
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setWeather(Weather weather) {
+        this.weather = weather;
+    }
+
+    public void setTemperature(Temperature temperature) {
+        this.temperature = temperature;
+    }
+
+    public void setWind(Wind wind) {
+        this.wind = wind;
+    }
+
+    public void setPressure(Double pressure) {
+        this.pressure = pressure;
+    }
+
+    public void setHumidity(Integer humidity) {
+        this.humidity = humidity;
+    }
+
     public City getCity() {
         return city;
     }
@@ -99,5 +130,21 @@ public class Forecast implements Parcelable {
 
     public Integer getHumidity() {
         return humidity;
+    }
+
+    public String getPressureString() {
+        if (pressure == null) {
+            return null;
+        } else {
+            return NUMBER_FORMAT.format(pressure) + "hPa";
+        }
+    }
+
+    public String getHumidityString() {
+        if (humidity == null) {
+            return null;
+        } else {
+            return humidity + "%";
+        }
     }
 }
