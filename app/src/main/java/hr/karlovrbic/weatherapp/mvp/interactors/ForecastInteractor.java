@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by TheKarlo95 on 18.10.2016..
  */
-public class ForecastInteractor implements IForecast.Interactor {
+public class ForecastInteractor implements IForecast.ForecastInteractor {
 
     private Subscription subscription;
 
