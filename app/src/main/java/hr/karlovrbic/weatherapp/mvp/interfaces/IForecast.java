@@ -16,6 +16,8 @@ public interface IForecast {
     interface View extends IBase.View {
         void setForecasts(List<Forecast> forecasts);
 
+        void setCurrentWeather(Forecast forecast);
+
         void onShowVideoClick();
 
         void startVideoActivity(String keywords);
@@ -27,6 +29,7 @@ public interface IForecast {
         void showProgress();
 
         void hideProgress();
+
     }
 
     interface Presenter extends IBase.Presenter {
@@ -37,7 +40,11 @@ public interface IForecast {
         void getForecast(City city);
     }
 
-    interface Interactor extends IBase.Interactor {
+    interface ForecastInteractor extends IBase.Interactor {
         void getForecast(String city, String country, final ResponseListener<List<Forecast>> listener);
+    }
+
+    interface CurrentWeatherInteractor extends IBase.Interactor {
+        void getCurrentWeather(String city, String country, final ResponseListener<Forecast> listener);
     }
 }
