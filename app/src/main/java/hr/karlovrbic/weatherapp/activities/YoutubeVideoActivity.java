@@ -1,38 +1,41 @@
 package hr.karlovrbic.weatherapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.SearchListResponse;
-import com.google.api.services.youtube.model.SearchResult;
-
-import java.io.IOException;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.karlovrbic.weatherapp.Keys;
 import hr.karlovrbic.weatherapp.R;
-import hr.karlovrbic.weatherapp.network.ApiManager;
+import hr.karlovrbic.weatherapp.mvp.interfaces.IYoutubeVideo;
+import hr.karlovrbic.weatherapp.mvp.presenters.YoutubeVideoPresenter;
+import hr.karlovrbic.weatherapp.utils.MessageUtils;
 
-public class YoutubeVideoActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
+public class YoutubeVideoActivity extends YouTubeBaseActivity
+        implements IYoutubeVideo.View,
+        YouTubePlayer.OnInitializedListener {
 
     private static final int RECOVERY_REQUEST = 1;
     private static final String KEYWORDS_KEY = "keywords";
+    private static final String VIDEO_ID_KEY = "video_id";
 
     @BindView(R.id.youtube_video_ytpv_player)
     YouTubePlayerView youTubeView;
 
+    private ProgressDialog progressDialog;
+    private IYoutubeVideo.Presenter presenter;
+
     private String keywords;
+    private String videoId;
 
     public static Intent buildIntent(Context context) {
         return new Intent(context, YoutubeVideoActivity.class);
@@ -45,33 +48,38 @@ public class YoutubeVideoActivity extends YouTubeBaseActivity implements YouTube
 
         ButterKnife.bind(this);
 
+        initProgressDialog();
+
+        presenter = new YoutubeVideoPresenter(this);
+
         if (savedInstanceState == null) {
             Intent intent = getIntent();
             if (intent != null) {
                 Bundle extras = intent.getExtras();
                 if (extras != null) {
-                    keywords = extras.getParcelable(ForecastActivity.KEYWORDS_EXTRAS_KEY);
+                    keywords = extras.getString(ForecastActivity.KEYWORDS_EXTRAS_KEY);
                 }
             }
+            presenter.loadVideo(keywords);
         } else {
             keywords = savedInstanceState.getString(KEYWORDS_KEY);
+            videoId = savedInstanceState.getString(VIDEO_ID_KEY);
+            cueVideo(videoId);
         }
-
-        youTubeView.initialize(Keys.YOUTUBE_API, this);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
         bundle.putString(KEYWORDS_KEY, keywords);
+        bundle.putString(VIDEO_ID_KEY, videoId);
     }
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
         if (!wasRestored) {
-            try {
-                searchVideo(keywords, player);
-            } catch (IOException ignored) {
+            if (videoId != null) {
+                player.cueVideo(videoId);
             }
         }
     }
@@ -93,29 +101,36 @@ public class YoutubeVideoActivity extends YouTubeBaseActivity implements YouTube
         }
     }
 
-    private void searchVideo(String keywords, YouTubePlayer player) throws IOException {
-        YouTube youtube = new YouTube.Builder(ApiManager.HTTP_TRANSPORT,
-                ApiManager.JSON_FACTORY,
-                new HttpRequestInitializer() {
-                    public void initialize(HttpRequest request) throws IOException {
-                    }
-                }).setApplicationName("weather-app").build();
-        YouTube.Search.List search = youtube.search().list("id,snippet");
+    @Override
+    public void cueVideo(String videoId) {
+        this.videoId = videoId;
+        youTubeView.initialize(Keys.YOUTUBE_API, this);
+    }
 
-        search.setKey(Keys.YOUTUBE_API);
-        search.setQ(keywords);
-        search.setType("video");
+    @Override
+    public void showProgress() {
+        progressDialog.show();
+    }
 
-        search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
-        search.setMaxResults(1L);
+    @Override
+    public void hideProgress() {
+        progressDialog.dismiss();
+    }
 
-        // Call the API and print results.
-        SearchListResponse searchResponse = search.execute();
-        List<SearchResult> searchResultList = searchResponse.getItems();
+    @Override
+    public void showMessage(@IdRes int resId) {
+        MessageUtils.showMessage(this, resId);
+    }
 
-        if (!searchResultList.isEmpty()) {
-            SearchResult searchResult = searchResultList.get(0);
-            player.cueVideo(searchResult.getId().getVideoId());
-        }
+    @Override
+    public void showMessage(String message) {
+        MessageUtils.showMessage(this, message);
+    }
+
+    private void initProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.forecast_loading));
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
     }
 }
