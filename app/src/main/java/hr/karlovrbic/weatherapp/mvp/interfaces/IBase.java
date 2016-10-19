@@ -13,7 +13,5 @@ public interface IBase {
 
     interface Interactor {
         void cancel();
-
-        void reset();
     }
 }
