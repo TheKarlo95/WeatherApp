@@ -90,7 +90,7 @@ public class ForecastsResponse {
             return new Forecast(city,
                     dt,
                     weather.get(0),
-                    new Temperature(temp.min, temp.max, null),
+                    new Temperature(null, temp.min, temp.max),
                     new Wind(windSpeed, windDegrees),
                     pressure,
                     humidity);
