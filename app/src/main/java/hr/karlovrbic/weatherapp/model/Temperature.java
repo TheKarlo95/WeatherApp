@@ -86,7 +86,11 @@ public class Temperature implements Parcelable {
         KELVIN(new Func1<Double, Double>() {
             @Override
             public Double call(Double input) {
-                return input;
+                if (input == null) {
+                    return null;
+                } else {
+                    return input;
+                }
             }
         }),
         CELSIUS(new Func1<Double, Double>() {
