@@ -49,8 +49,8 @@ public class Wind implements Parcelable {
         dest.writeValue(this.degrees);
     }
 
-    public Double getSpeed() {
-        return speed;
+    public Double getSpeed(Unit unit) {
+        return unit.getConverter().call(speed);
     }
 
     public Double getDegrees() {
@@ -61,13 +61,21 @@ public class Wind implements Parcelable {
         METER_PER_SECOND(new Func1<Double, Double>() {
             @Override
             public Double call(Double input) {
-                return input;
+                if (input == null) {
+                    return null;
+                } else {
+                    return input;
+                }
             }
         }),
         MILES_PER_HOUR(new Func1<Double, Double>() {
             @Override
             public Double call(Double input) {
-                return input / 0.44704;
+                if (input == null) {
+                    return null;
+                } else {
+                    return input / 0.44704;
+                }
             }
         });
 
