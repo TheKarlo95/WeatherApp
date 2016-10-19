@@ -23,7 +23,7 @@ public class Weather implements Parcelable {
         }
     };
 
-    private static final String ICON_LINK_ENDPOINT = "http://openweathermap.org/img/w/";
+    private static final String ICON_LINK = "http://openweathermap.org/img/w/%s.png";
 
     @SerializedName("id")
     @Expose
@@ -42,9 +42,7 @@ public class Weather implements Parcelable {
         this.id = id;
         this.main = main;
         this.description = description;
-        if (iconLink != null) {
-            this.iconLink = ICON_LINK_ENDPOINT + iconLink;
-        }
+        this.iconLink = iconLink;
     }
 
     protected Weather(Parcel in) {
@@ -80,6 +78,10 @@ public class Weather implements Parcelable {
     }
 
     public String getIconLink() {
-        return iconLink;
+        if (iconLink == null) {
+            return null;
+        } else {
+            return String.format(ICON_LINK, iconLink);
+        }
     }
 }
