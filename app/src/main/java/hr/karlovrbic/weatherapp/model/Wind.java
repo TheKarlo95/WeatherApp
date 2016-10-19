@@ -1,7 +1,12 @@
 package hr.karlovrbic.weatherapp.model;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.util.Locale;
+
+import rx.functions.Func1;
 
 /**
  * Created by TheKarlo95 on 17.10.2016..
@@ -50,5 +55,44 @@ public class Wind implements Parcelable {
 
     public Double getDegrees() {
         return degrees;
+    }
+
+    public enum Unit {
+        METER_PER_SECOND(new Func1<Double, Double>() {
+            @Override
+            public Double call(Double input) {
+                return input;
+            }
+        }),
+        MILES_PER_HOUR(new Func1<Double, Double>() {
+            @Override
+            public Double call(Double input) {
+                return input / 0.44704;
+            }
+        });
+
+        public static Unit getLocaleUnit(Context context) {
+            Locale current = context.getResources().getConfiguration().locale;
+            String countryCode = current.getCountry().toUpperCase();
+
+            if (countryCode.equals("US") ||
+                    countryCode.equals("UK") ||
+                    countryCode.equals("LR") ||
+                    countryCode.equals("MM")) {
+                return Unit.MILES_PER_HOUR;
+            } else {
+                return Unit.METER_PER_SECOND;
+            }
+        }
+
+        private Func1<Double, Double> converter;
+
+        Unit(Func1 function) {
+            this.converter = function;
+        }
+
+        public Func1<Double, Double> getConverter() {
+            return converter;
+        }
     }
 }
