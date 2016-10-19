@@ -1,4 +1,4 @@
-package hr.karlovrbic.weatherapp.adapter;
+package hr.karlovrbic.weatherapp.recyclerview.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,14 +11,18 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.karlovrbic.weatherapp.R;
 import hr.karlovrbic.weatherapp.model.Forecast;
+import hr.karlovrbic.weatherapp.model.Temperature;
+import hr.karlovrbic.weatherapp.model.Wind;
 import hr.karlovrbic.weatherapp.utils.Objects;
 
 /**
@@ -70,9 +74,10 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         return forecasts;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private static final DateFormat DATE_FORMAT = SimpleDateFormat.getDateInstance();
+        private static final NumberFormat NUMBER_FORMAT = NumberFormat.getNumberInstance();
 
         @BindView(R.id.weather_box_tv_date)
         TextView tvDate;
@@ -107,22 +112,57 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
 
         public void setForecast(Context context, Forecast forecast) {
             if (forecast != null) {
-                Glide.with(context)
-                        .load(forecast.getWeather().getIconLink())
-                        .dontAnimate()
-                        .into(ivIcon);
-                tvDate.setText(DATE_FORMAT.format(forecast.getDate()));
-                tvWeatherMain.setText(forecast.getWeather().getMain());
-                tvWeatherDescription.setText(forecast.getWeather().getDescription());
-                tvTempMax.setText(String.valueOf(forecast.getTemperature().getMax()));
-                tvTempMin.setText(String.valueOf(forecast.getTemperature().getMin()));
-                tvTempCurrent.setText(String.valueOf(forecast.getTemperature().getCurrent()));
-                tvWindSpeed.setText(String.valueOf(forecast.getWind().getSpeed()));
-                tvWindDegrees.setText(String.valueOf(forecast.getWind().getDegrees()));
-                tvPressure.setText(String.valueOf(forecast.getPressure()));
-                tvHumidity.setText(String.valueOf(forecast.getHumidity()));
+                String iconLink = forecast.getWeather().getIconLink();
+                Date date = forecast.getDate();
+                String weatherMain = forecast.getWeather().getMain();
+                String weatherDescription = forecast.getWeather().getDescription();
+                Temperature.Unit tempUnit = Temperature.Unit.getLocaleUnit(context);
+                String tempMax = forecast.getTemperature().getMaxString(tempUnit);
+                String tempMin = forecast.getTemperature().getMinString(tempUnit);
+                String tempCur = forecast.getTemperature().getCurrentString(tempUnit);
+                Wind.Unit speedUnit = Wind.Unit.getLocaleUnit(context);
+                String windSpeed = forecast.getWind().getSpeedString(speedUnit);
+                String windDegrees = forecast.getWind().getDegreesString();
+                String pressure = forecast.getPressureString();
+                String humidity = forecast.getHumidityString();
+
+                if (iconLink != null) {
+                    Glide.with(context)
+                            .load(iconLink)
+                            .dontAnimate()
+                            .into(ivIcon);
+                }
+                if (date != null) {
+                    tvDate.setText(DATE_FORMAT.format(date));
+                }
+                if (weatherMain != null) {
+                    tvWeatherMain.setText(weatherMain);
+                }
+                if (weatherDescription != null) {
+                    tvWeatherDescription.setText(weatherDescription);
+                }
+                if (tempMax != null) {
+                    tvTempMax.setText(tempMax);
+                }
+                if (tempMin != null) {
+                    tvTempMin.setText(tempMin);
+                }
+                if (tempCur != null) {
+                    tvTempCurrent.setText(tempCur);
+                }
+                if (windSpeed != null) {
+                    tvWindSpeed.setText(windSpeed);
+                }
+                if (windDegrees != null) {
+                    tvWindDegrees.setText(windDegrees);
+                }
+                if (pressure != null) {
+                    tvPressure.setText(pressure);
+                }
+                if (humidity != null) {
+                    tvHumidity.setText(humidity);
+                }
             }
         }
-
     }
 }
