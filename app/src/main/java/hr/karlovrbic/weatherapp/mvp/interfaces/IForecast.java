@@ -5,7 +5,7 @@ import android.support.annotation.IdRes;
 import java.util.List;
 
 import hr.karlovrbic.weatherapp.model.City;
-import hr.karlovrbic.weatherapp.model.Country;
+import hr.karlovrbic.weatherapp.model.Forecast;
 import hr.karlovrbic.weatherapp.network.ResponseListener;
 
 /**
@@ -14,6 +14,8 @@ import hr.karlovrbic.weatherapp.network.ResponseListener;
 public interface IForecast {
 
     interface View extends IBase.View {
+        void setForecasts(List<Forecast> forecasts);
+
         void onShowVideoClick();
 
         void startVideoActivity(String keywords);
@@ -32,10 +34,10 @@ public interface IForecast {
 
         void showVideo(String cityName, String weatherDescription);
 
-        void getForecast(City city, Country country);
+        void getForecast(City city);
     }
 
-    interface ForecastInteractor extends IBase.Interactor {
-        void getForecast(ResponseListener<List<City>> listener);
+    interface Interactor extends IBase.Interactor {
+        void getForecast(String city, String country, final ResponseListener<List<Forecast>> listener);
     }
 }
