@@ -24,7 +24,7 @@ import hr.karlovrbic.weatherapp.mvp.presenters.SearchPresenter;
 
 public class SearchActivity extends AppCompatActivity implements ISearch.View {
 
-    private static final String CITY_EXTRAS_KEY = "city";
+    public static final String CITY_EXTRAS_KEY = "city";
 
     @BindView(R.id.search_toolbar)
     Toolbar toolbar;
@@ -71,13 +71,22 @@ public class SearchActivity extends AppCompatActivity implements ISearch.View {
         });
     }
 
-
     @Override
     @OnClick(R.id.search_fab)
     public void onSearchClick() {
         String cityName = etCity.getText().toString();
         String countryName = etCountry.getText().toString();
-        presenter.getForecast(cityName, countryName);
+        presenter.showForecast(cityName, countryName);
+    }
+
+    @Override
+    public void startForecastActivity(City city) {
+        Bundle extras = new Bundle();
+        extras.putParcelable(CITY_EXTRAS_KEY, city);
+
+        Intent intent = ForecastActivity.buildIntent(this);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
     @Override
@@ -96,15 +105,6 @@ public class SearchActivity extends AppCompatActivity implements ISearch.View {
         etCountry.setText(country);
     }
 
-    @Override
-    public void startForecastActivity(City city) {
-        Bundle extras = new Bundle();
-        extras.putParcelable(CITY_EXTRAS_KEY, city);
-
-        Intent intent = CurrentWeatherActivity.buildIntent(this);
-        intent.putExtras(extras);
-        startActivity(intent);
-    }
 
     private void requestFocus(View view) {
         if (view.requestFocus()) {
