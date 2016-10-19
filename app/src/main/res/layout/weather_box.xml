@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
+    android:id="@+id/weather_cv_top"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/weather_cv_top"
-    app:cardBackgroundColor="@color/weather_box_background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    app:cardBackgroundColor="@color/weather_box_background"
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/weather_box_tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="19.10.2016"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,6 +39,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/weather_box_iv_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/forecast_weather_icon_description"
@@ -40,11 +51,13 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/weather_box_tv_weather_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Clear"/>
 
                 <TextView
+                    android:id="@+id/weather_box_tv_weather_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Clear sky"/>
@@ -61,17 +74,17 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <include
-                layout="@layout/weather_box_temperature"
+                layout="@layout/weather_box_sub_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_small_vertical_margin"
                 android:layout_marginEnd="@dimen/activity_small_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_small_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_small_vertical_margin"
-                android:layout_weight="1"/>
+                android:layout_weight="2"/>
 
             <View
                 android:layout_width="1dp"
@@ -81,7 +94,7 @@
                 android:background="@color/colorPrimary"/>
 
             <include
-                layout="@layout/weather_box_other"
+                layout="@layout/weather_box_sub_2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_small_vertical_margin"
