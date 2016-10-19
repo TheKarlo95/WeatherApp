@@ -33,6 +33,10 @@ public class Temperature implements Parcelable {
         this.max = max;
     }
 
+    public Temperature(Double min, Double max) {
+        this(null, min, max);
+    }
+
     protected Temperature(Parcel in) {
         this.current = (Double) in.readValue(Double.class.getClassLoader());
         this.min = (Double) in.readValue(Double.class.getClassLoader());
@@ -49,10 +53,6 @@ public class Temperature implements Parcelable {
         dest.writeValue(this.current);
         dest.writeValue(this.min);
         dest.writeValue(this.max);
-    }
-
-    public Temperature(Double min, Double max) {
-        this(min, max, null);
     }
 
     public Double getCurrent(Unit unit) {
