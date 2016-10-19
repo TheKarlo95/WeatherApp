@@ -13,9 +13,10 @@
 
     <TextView
         android:id="@+id/forecast_tv_city"
+        style="@style/TextTitleLarge"
         android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"

@@ -9,6 +9,7 @@
 
     <TextView
         android:id="@+id/weather_box_tv_pressure_label"
+        style="@style/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -16,12 +17,14 @@
 
     <TextView
         android:id="@+id/weather_box_tv_pressure_value"
+        style="@style/TextNormal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="1029.46hPa"/>
 
     <TextView
         android:id="@+id/weather_box_tv_humidity_label"
+        style="@style/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -30,6 +33,7 @@
 
     <TextView
         android:id="@+id/weather_box_tv_humidity_value"
+        style="@style/TextNormal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="60%"/>

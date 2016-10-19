@@ -25,6 +25,7 @@
 
         <TextView
             android:id="@+id/weather_box_tv_date"
+            style="@style/TextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="19.10.2016"/>
@@ -52,12 +53,14 @@
 
                 <TextView
                     android:id="@+id/weather_box_tv_weather_main"
+                    style="@style/TextTitleSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Clear"/>
 
                 <TextView
                     android:id="@+id/weather_box_tv_weather_description"
+                    style="@style/TextNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Clear sky"/>

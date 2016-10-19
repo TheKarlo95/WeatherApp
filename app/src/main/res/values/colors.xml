@@ -3,5 +3,8 @@
     <color name="colorPrimary">#607D8B</color>
     <color name="colorPrimaryDark">#455A64</color>
     <color name="colorAccent">#9C27B0</color>
+    <color name="primaryText">#DE000000</color>
+    <color name="secondaryText">#8A000000</color>
+    <color name="hintText">#61000000</color>
     <color name="weather_box_background">#ECEFF1</color>
 </resources>

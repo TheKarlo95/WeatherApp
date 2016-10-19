@@ -9,6 +9,7 @@
 
     <TextView
         android:id="@+id/weather_box_tv_temperature_label"
+        style="@style/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -28,18 +29,21 @@
 
             <TextView
                 android:id="@+id/weather_box_tv_temperature_max_label"
+                style="@style/TextBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/weather_box_sub_1_temp_max"/>
 
             <TextView
                 android:id="@+id/weather_box_tv_temperature_min_label"
+                style="@style/TextBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/weather_box_sub_1_temp_min"/>
 
             <TextView
                 android:id="@+id/weather_box_tv_temperature_current_label"
+                style="@style/TextBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/weather_box_sub_1_temp_cur"/>
@@ -54,26 +58,30 @@
 
             <TextView
                 android:id="@+id/weather_box_tv_temperature_max_value"
-                tools:text="27°C"
+                style="@style/TextNormal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="27°C"/>
 
             <TextView
                 android:id="@+id/weather_box_tv_temperature_min_value"
-                tools:text="16°C"
+                style="@style/TextNormal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="16°C"/>
 
             <TextView
                 android:id="@+id/weather_box_tv_temperature_current_value"
-                tools:text="21°C"
+                style="@style/TextNormal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                tools:text="21°C"/>
         </LinearLayout>
     </LinearLayout>
 
     <TextView
         android:id="@+id/weather_tv_wind_label"
+        style="@style/TextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -94,12 +102,14 @@
 
             <TextView
                 android:id="@+id/weather_box_tv_wind_speed_label"
+                style="@style/TextBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/weather_box_sub_1_wind_speed"/>
 
             <TextView
                 android:id="@+id/weather_box_tv_wind_degrees_label"
+                style="@style/TextBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/weather_box_sub_1_wind_degrees"/>
@@ -114,12 +124,14 @@
 
             <TextView
                 android:id="@+id/weather_box_tv_wind_speed_value"
+                style="@style/TextNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="2.56km/h"/>
 
             <TextView
                 android:id="@+id/weather_box_tv_wind_degrees_value"
+                style="@style/TextNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="25.5002°"/>
