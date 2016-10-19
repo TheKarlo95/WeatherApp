@@ -1,9 +1,27 @@
 <resources>
     <string name="app_name">WeatherApp</string>
-    <string name="title_activity_search">SearchActivity</string>
+
+    <!-- search activity -->
+    <string name="title_activity_search">Search city</string>
     <string name="search_hint_city">City</string>
     <string name="search_hint_country">Country</string>
     <string name="search_error_message_city">Enter city name</string>
-    <string name="title_activity_forecast">ForecastActivity</string>
+
+    <!-- forecast activity -->
+    <string name="title_activity_forecast">Forecast</string>
     <string name="forecast_weather_icon_description">Weather icon</string>
+    <string name="weather_box_sub_1_temp">Temperature</string>
+    <string name="weather_box_sub_1_temp_max">max</string>
+    <string name="weather_box_sub_1_temp_min">min</string>
+    <string name="weather_box_sub_1_temp_cur">current</string>
+    <string name="weather_box_sub_1_wind">Wind</string>
+    <string name="weather_box_sub_1_wind_speed">speed</string>
+    <string name="weather_box_sub_1_wind_degrees">degrees</string>
+    <string name="weather_box_sub_2_pressure">Pressure</string>
+    <string name="weather_box_sub_2_humidity">Humidity</string>
+
+    <!-- youtube video activity -->
+    <string name="title_activity_youtube_video">Youtube video</string>
+    <string name="forecast_loading">Loading...</string>
+    <string name="youtube_video_player_error">Error: %s</string>
 </resources>

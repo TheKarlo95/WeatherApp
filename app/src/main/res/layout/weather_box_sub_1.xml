@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Temperature"/>
+        android:text="@string/weather_box_sub_1_temp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,19 +30,19 @@
                 android:id="@+id/weather_box_tv_temperature_max_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="max"/>
+                android:text="@string/weather_box_sub_1_temp_max"/>
 
             <TextView
                 android:id="@+id/weather_box_tv_temperature_min_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="min"/>
+                android:text="@string/weather_box_sub_1_temp_min"/>
 
             <TextView
                 android:id="@+id/weather_box_tv_temperature_current_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="current"/>
+                android:text="@string/weather_box_sub_1_temp_cur"/>
         </LinearLayout>
 
         <LinearLayout
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:gravity="center"
-        android:text="Wind"/>
+        android:text="@string/weather_box_sub_1_wind"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -96,13 +96,13 @@
                 android:id="@+id/weather_box_tv_wind_speed_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="speed"/>
+                android:text="@string/weather_box_sub_1_wind_speed"/>
 
             <TextView
                 android:id="@+id/weather_box_tv_wind_degrees_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="degrees"/>
+                android:text="@string/weather_box_sub_1_wind_degrees"/>
         </LinearLayout>
 
         <LinearLayout
