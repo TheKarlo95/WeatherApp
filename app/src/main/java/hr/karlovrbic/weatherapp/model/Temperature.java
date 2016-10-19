@@ -61,12 +61,24 @@ public class Temperature implements Parcelable {
         dest.writeValue(this.max);
     }
 
+    public void setCurrent(Double current) {
+        this.current = current;
+    }
+
+    public void setMin(Double min) {
+        this.min = min;
+    }
+
+    public void setMax(Double max) {
+        this.max = max;
+    }
+
     public Double getCurrent(Unit unit) {
         return unit.getConverter().call(current);
     }
 
     public Double getCurrent() {
-        return getCurrent(Unit.CELSIUS);
+        return getCurrent(Unit.KELVIN);
     }
 
     public Double getMin(Unit unit) {
@@ -74,7 +86,7 @@ public class Temperature implements Parcelable {
     }
 
     public Double getMin() {
-        return getMin(Unit.CELSIUS);
+        return getMin(Unit.KELVIN);
     }
 
     public Double getMax(Unit unit) {
@@ -82,7 +94,7 @@ public class Temperature implements Parcelable {
     }
 
     public Double getMax() {
-        return getMax(Unit.CELSIUS);
+        return getMax(Unit.KELVIN);
     }
 
     public String getCurrentString(Unit unit) {
