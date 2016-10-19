@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.NumberFormat;
 import java.util.Locale;
 
 import rx.functions.Func1;
@@ -24,6 +25,8 @@ public class Wind implements Parcelable {
             return new Wind[size];
         }
     };
+
+    private static final NumberFormat NUMBER_FORMAT = NumberFormat.getNumberInstance();
 
     private Double speed;
     private Double degrees;
@@ -57,7 +60,7 @@ public class Wind implements Parcelable {
         if (speed == null) {
             return null;
         } else {
-            return String.valueOf(getSpeed(unit)) + unit.getSign();
+            return NUMBER_FORMAT.format(getSpeed(unit)) + unit.getSign();
         }
     }
 
