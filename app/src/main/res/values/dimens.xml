@@ -5,4 +5,8 @@
     <dimen name="activity_small_horizontal_margin">8dp</dimen>
     <dimen name="activity_small_vertical_margin">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="app_defaultsize_w">600dp</dimen>
+    <dimen name="app_defaultsize_h">500dp</dimen>
+    <dimen name="app_minimumsize_w">300dp</dimen>
+    <dimen name="app_minimumsize_h">450dp</dimen>
 </resources>
