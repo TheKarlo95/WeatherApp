@@ -16,7 +16,7 @@ public interface IForecast {
     interface View extends IBase.View {
         void setForecasts(List<Forecast> forecasts);
 
-        void setCurrentWeather(Forecast forecast);
+        void setCity(City city);
 
         void onShowVideoClick();
 
@@ -29,7 +29,6 @@ public interface IForecast {
         void showProgress();
 
         void hideProgress();
-
     }
 
     interface Presenter extends IBase.Presenter {
