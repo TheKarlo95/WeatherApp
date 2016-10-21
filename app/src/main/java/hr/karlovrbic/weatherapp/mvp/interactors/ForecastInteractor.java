@@ -29,7 +29,7 @@ public class ForecastInteractor implements IForecast.ForecastInteractor {
         }
 
         final Observable<ForecastsResponse> weatherResponse =
-                ApiManager.getService().getForecasts(cityAndCountry, "3", Keys.OPEN_WEATHER_KEY);
+                ApiManager.getService().getForecasts(cityAndCountry, "4", Keys.OPEN_WEATHER_KEY);
 
 
         subscription = weatherResponse
