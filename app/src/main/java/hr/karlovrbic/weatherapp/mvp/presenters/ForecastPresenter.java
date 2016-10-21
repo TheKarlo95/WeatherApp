@@ -2,6 +2,7 @@ package hr.karlovrbic.weatherapp.mvp.presenters;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import hr.karlovrbic.weatherapp.model.City;
@@ -11,6 +12,7 @@ import hr.karlovrbic.weatherapp.mvp.interactors.CurrentWeatherInteractor;
 import hr.karlovrbic.weatherapp.mvp.interactors.ForecastInteractor;
 import hr.karlovrbic.weatherapp.mvp.interfaces.IForecast;
 import hr.karlovrbic.weatherapp.network.ResponseListener;
+import hr.karlovrbic.weatherapp.utils.DateUtils;
 import hr.karlovrbic.weatherapp.utils.Objects;
 
 /**
@@ -27,6 +29,8 @@ public class ForecastPresenter implements IForecast.Presenter {
     private IForecast.CurrentWeatherInteractor currentWeatherInteractor;
 
     private int callCounter;
+    private List<Forecast> forecasts;
+    private Forecast currentWeather;
 
     public ForecastPresenter(IForecast.View view) {
         this.view = Objects.requireNonNull(view, "Parameter view cannnot be null");
@@ -56,23 +60,22 @@ public class ForecastPresenter implements IForecast.Presenter {
         }
 
         forecastInteractor.getForecast(cityName, countryName, new ResponseListener<List<Forecast>>() {
-                    @Override
-                    public void onSuccess(List<Forecast> result) {
-                        view.setForecasts(result);
-                        hideProgress();
-                    }
+            @Override
+            public void onSuccess(List<Forecast> result) {
+                setForecasts(result);
+                hideProgress();
+            }
 
-                    @Override
-                    public void onError(String message) {
-                        view.showMessage(message);
-                        view.hideProgress();
-                    }
-                }
-        );
+            @Override
+            public void onError(String message) {
+                view.showMessage(message);
+                view.hideProgress();
+            }
+        });
         currentWeatherInteractor.getCurrentWeather(cityName, countryName, new ResponseListener<Forecast>() {
             @Override
             public void onSuccess(Forecast result) {
-                view.setCurrentWeather(result);
+                setCurrentWeather(result);
                 hideProgress();
             }
 
@@ -94,6 +97,34 @@ public class ForecastPresenter implements IForecast.Presenter {
         callCounter--;
         if (callCounter <= 0) {
             view.hideProgress();
+        }
+    }
+
+    private void setForecasts(List<Forecast> forecasts) {
+        this.forecasts = forecasts;
+        setForecasts();
+    }
+
+    private void setCurrentWeather(Forecast currentWeather) {
+        this.currentWeather = currentWeather;
+        setForecasts();
+    }
+
+    private void setForecasts() {
+        if (currentWeather != null && forecasts != null) {
+            if (!DateUtils.isToday(forecasts.get(0).getDate())) {
+                forecasts = forecasts.subList(1, forecasts.size());
+            }
+
+            currentWeather.getTemperature().setMax(forecasts.get(0).getTemperature().getMax());
+            currentWeather.getTemperature().setMin(forecasts.get(0).getTemperature().getMin());
+
+            List<Forecast> allForecasts = new ArrayList<>(3);
+            allForecasts.add(currentWeather);
+            allForecasts.addAll(forecasts.subList(1, forecasts.size()));
+
+            view.setForecasts(allForecasts);
+            view.setCity(currentWeather.getCity());
         }
     }
 }
