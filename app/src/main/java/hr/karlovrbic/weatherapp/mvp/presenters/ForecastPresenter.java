@@ -112,7 +112,9 @@ public class ForecastPresenter implements IForecast.Presenter {
 
     private void setForecasts() {
         if (currentWeather != null && forecasts != null) {
-            if (!DateUtils.isToday(forecasts.get(0).getDate())) {
+            if (DateUtils.isToday(forecasts.get(0).getDate())) {
+                forecasts = forecasts.subList(0, forecasts.size() - 1);
+            } else {
                 forecasts = forecasts.subList(1, forecasts.size());
             }
 
