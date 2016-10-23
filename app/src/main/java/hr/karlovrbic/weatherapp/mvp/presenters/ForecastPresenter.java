@@ -1,41 +1,37 @@
 package hr.karlovrbic.weatherapp.mvp.presenters;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import hr.karlovrbic.weatherapp.model.City;
 import hr.karlovrbic.weatherapp.model.Country;
 import hr.karlovrbic.weatherapp.model.Forecast;
-import hr.karlovrbic.weatherapp.mvp.interactors.CurrentWeatherInteractor;
-import hr.karlovrbic.weatherapp.mvp.interactors.ForecastInteractor;
 import hr.karlovrbic.weatherapp.mvp.interfaces.IForecast;
 import hr.karlovrbic.weatherapp.network.ResponseListener;
 import hr.karlovrbic.weatherapp.utils.DateUtils;
-import hr.karlovrbic.weatherapp.utils.Objects;
 
 /**
  * Created by TheKarlo95 on 18.10.2016..
  */
-
 public class ForecastPresenter implements IForecast.Presenter {
 
-    @NonNull
     private IForecast.View view;
-    @NonNull
     private IForecast.ForecastInteractor forecastInteractor;
-    @NonNull
     private IForecast.CurrentWeatherInteractor currentWeatherInteractor;
 
     private int callCounter;
     private List<Forecast> forecasts;
     private Forecast currentWeather;
 
-    public ForecastPresenter(IForecast.View view) {
-        this.view = Objects.requireNonNull(view, "Parameter view cannnot be null");
-        this.forecastInteractor = new ForecastInteractor();
-        this.currentWeatherInteractor = new CurrentWeatherInteractor();
+    @Inject
+    public ForecastPresenter(IForecast.View view,
+                             IForecast.ForecastInteractor forecastInteractor,
+                             IForecast.CurrentWeatherInteractor currentWeatherInteractor) {
+        this.view = view;
+        this.forecastInteractor = forecastInteractor;
+        this.currentWeatherInteractor = currentWeatherInteractor;
     }
 
     @Override

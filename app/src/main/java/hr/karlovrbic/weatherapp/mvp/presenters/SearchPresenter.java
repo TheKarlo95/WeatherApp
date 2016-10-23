@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import hr.karlovrbic.weatherapp.model.City;
 import hr.karlovrbic.weatherapp.model.Country;
 import hr.karlovrbic.weatherapp.mvp.interfaces.ISearch;
-import hr.karlovrbic.weatherapp.utils.Objects;
 
 /**
  * Created by TheKarlo95 on 17.10.2016..
@@ -18,21 +19,16 @@ public class SearchPresenter implements ISearch.Presenter {
 
     private Map<String, String> countries;
 
+    @Inject
     public SearchPresenter(ISearch.View view) {
-        this.view = Objects.requireNonNull(view, "Parameter view cannnot be null");
-
-        countries = new HashMap<>();
-        for (String iso : Locale.getISOCountries()) {
-            Locale l = new Locale("", iso);
-            countries.put(l.getDisplayCountry(), iso);
-        }
+        this.view = view;
     }
 
     @Override
     public void showForecast(String cityName, String countryName) {
         if (validateCityInput(cityName)) {
             Country country = null;
-            if(countryName != null && !countryName.isEmpty()) {
+            if (countryName != null && !countryName.isEmpty()) {
                 country = new Country(getISO2Code(countryName), countryName);
             }
             City city = new City(cityName, country);
@@ -55,6 +51,17 @@ public class SearchPresenter implements ISearch.Presenter {
     }
 
     private String getISO2Code(String countryName) {
+        if (countries == null) {
+            initCountriesMap();
+        }
         return countries.get(countryName);
+    }
+
+    private void initCountriesMap() {
+        countries = new HashMap<>();
+        for (String iso : Locale.getISOCountries()) {
+            Locale l = new Locale("", iso);
+            countries.put(l.getDisplayCountry(), iso);
+        }
     }
 }
