@@ -3,6 +3,8 @@ package hr.karlovrbic.weatherapp.mvp.interactors;
 import java.util.List;
 
 import hr.karlovrbic.weatherapp.Keys;
+import hr.karlovrbic.weatherapp.R;
+import hr.karlovrbic.weatherapp.WeatherApp;
 import hr.karlovrbic.weatherapp.model.Forecast;
 import hr.karlovrbic.weatherapp.model.response.ForecastsResponse;
 import hr.karlovrbic.weatherapp.mvp.interfaces.IForecast;
@@ -42,7 +44,7 @@ public class ForecastInteractor implements IForecast.ForecastInteractor {
 
                     @Override
                     public void onError(Throwable e) {
-                        listener.onError(e.getMessage());
+                        listener.onError(WeatherApp.get().getString(R.string.forecast_interactor_error));
                     }
 
                     @Override
