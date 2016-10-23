@@ -15,6 +15,8 @@ public interface IBase {
         void showProgress();
 
         void hideProgress();
+
+        void onBackPressed();
     }
 
     interface Presenter {
