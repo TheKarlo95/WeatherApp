@@ -19,9 +19,13 @@
     <string name="weather_box_sub_1_wind_degrees">degrees</string>
     <string name="weather_box_sub_2_pressure">Pressure</string>
     <string name="weather_box_sub_2_humidity">Humidity</string>
+    <string name="forecast_interactor_error">Error occurred while getting forecasts</string>
+    <string name="current_weather_interactor_error">Error occurred while getting current weather</string>
 
     <!-- youtube video activity -->
     <string name="title_activity_youtube_video">Youtube video</string>
-    <string name="forecast_loading">Loading...</string>
+    <string name="forecast_loading">Loading…</string>
     <string name="youtube_video_player_error">Error: %s</string>
+    <string name="youtube_video_interactor_error">Error occurred while getting youtube video</string>
+    <string name="youtube_video_presenter_no_videos_error">No videos found</string>
 </resources>
