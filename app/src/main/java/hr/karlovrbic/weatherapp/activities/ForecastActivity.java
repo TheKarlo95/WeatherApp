@@ -11,14 +11,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.karlovrbic.weatherapp.R;
+import hr.karlovrbic.weatherapp.dagger.components.AppComponent;
+import hr.karlovrbic.weatherapp.dagger.modules.ForecastModule;
 import hr.karlovrbic.weatherapp.model.City;
 import hr.karlovrbic.weatherapp.model.Forecast;
 import hr.karlovrbic.weatherapp.mvp.interfaces.IForecast;
-import hr.karlovrbic.weatherapp.mvp.presenters.ForecastPresenter;
 import hr.karlovrbic.weatherapp.recyclerview.adapter.ForecastAdapter;
 import hr.karlovrbic.weatherapp.utils.MessageUtils;
 
@@ -34,7 +37,8 @@ public class ForecastActivity extends BaseActivity implements IForecast.View {
     @BindView(R.id.forecast_tv_city)
     TextView tvCity;
 
-    private IForecast.Presenter presenter;
+    @Inject
+    IForecast.Presenter presenter;
 
     private ForecastAdapter adapter;
 
@@ -50,7 +54,6 @@ public class ForecastActivity extends BaseActivity implements IForecast.View {
         ButterKnife.bind(this);
 
         setToolbar(toolbar, true);
-        presenter = new ForecastPresenter(this);
 
         if (savedInstanceState == null) {
             Intent intent = getIntent();
@@ -85,6 +88,11 @@ public class ForecastActivity extends BaseActivity implements IForecast.View {
         presenter.cancel();
         hideProgress();
         super.onStop();
+    }
+
+    @Override
+    protected void injectDependencies(AppComponent appComponent) {
+        appComponent.plus(new ForecastModule(this)).inject(this);
     }
 
     @Override

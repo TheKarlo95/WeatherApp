@@ -13,13 +13,16 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hr.karlovrbic.weatherapp.R;
+import hr.karlovrbic.weatherapp.dagger.components.AppComponent;
+import hr.karlovrbic.weatherapp.dagger.modules.SearchModule;
 import hr.karlovrbic.weatherapp.model.City;
 import hr.karlovrbic.weatherapp.mvp.interfaces.ISearch;
-import hr.karlovrbic.weatherapp.mvp.presenters.SearchPresenter;
 
 public class SearchActivity extends BaseActivity implements ISearch.View {
 
@@ -38,7 +41,8 @@ public class SearchActivity extends BaseActivity implements ISearch.View {
     @BindView(R.id.search_et_country)
     EditText etCountry;
 
-    private ISearch.Presenter presenter;
+    @Inject
+    ISearch.Presenter presenter;
 
     public static Intent buildIntent(Context context) {
         Intent intent = new Intent(context, SearchActivity.class);
@@ -54,7 +58,6 @@ public class SearchActivity extends BaseActivity implements ISearch.View {
         ButterKnife.bind(this);
 
         setToolbar(toolbar, false);
-        presenter = new SearchPresenter(this);
 
         etCountry.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
@@ -73,6 +76,11 @@ public class SearchActivity extends BaseActivity implements ISearch.View {
         presenter.cancel();
         hideProgress();
         super.onStop();
+    }
+
+    @Override
+    protected void injectDependencies(AppComponent appComponent) {
+        appComponent.plus(new SearchModule(this)).inject(this);
     }
 
     @Override

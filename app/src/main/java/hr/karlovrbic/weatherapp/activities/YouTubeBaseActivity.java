@@ -3,9 +3,6 @@ package hr.karlovrbic.weatherapp.activities;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import hr.karlovrbic.weatherapp.R;
@@ -18,7 +15,8 @@ import hr.karlovrbic.weatherapp.utils.MessageUtils;
  * Created by TheKarlo95 on 23.10.2016..
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements IBase.View {
+public abstract class YouTubeBaseActivity extends com.google.android.youtube.player.YouTubeBaseActivity
+        implements IBase.View {
     private ProgressDialog progressDialog;
 
     @Override
@@ -66,16 +64,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBase.Vi
     }
 
     protected abstract void injectDependencies(AppComponent appComponent);
-
-    protected void setToolbar(Toolbar toolbar, boolean showHomeAsUp) {
-        setSupportActionBar(toolbar);
-        if (showHomeAsUp) {
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            }
-        }
-    }
 
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(this);

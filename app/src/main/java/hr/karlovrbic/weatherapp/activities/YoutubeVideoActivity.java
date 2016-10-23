@@ -4,21 +4,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.widget.Toast;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hr.karlovrbic.weatherapp.Keys;
 import hr.karlovrbic.weatherapp.R;
+import hr.karlovrbic.weatherapp.dagger.components.AppComponent;
+import hr.karlovrbic.weatherapp.dagger.modules.YouTubeVideoModule;
 import hr.karlovrbic.weatherapp.mvp.interfaces.IYoutubeVideo;
-import hr.karlovrbic.weatherapp.mvp.presenters.YoutubeVideoPresenter;
-import hr.karlovrbic.weatherapp.utils.MessageUtils;
 
 public class YoutubeVideoActivity extends YouTubeBaseActivity
         implements IYoutubeVideo.View,
@@ -32,7 +32,9 @@ public class YoutubeVideoActivity extends YouTubeBaseActivity
     YouTubePlayerView youTubeView;
 
     private ProgressDialog progressDialog;
-    private IYoutubeVideo.Presenter presenter;
+
+    @Inject
+    IYoutubeVideo.Presenter presenter;
 
     private String keywords;
     private String videoId;
@@ -42,15 +44,11 @@ public class YoutubeVideoActivity extends YouTubeBaseActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube_video);
 
         ButterKnife.bind(this);
-
-        initProgressDialog();
-
-        presenter = new YoutubeVideoPresenter(this);
 
         if (savedInstanceState == null) {
             Intent intent = getIntent();
@@ -66,6 +64,11 @@ public class YoutubeVideoActivity extends YouTubeBaseActivity
             videoId = savedInstanceState.getString(VIDEO_ID_KEY);
             cueVideo(videoId);
         }
+    }
+
+    @Override
+    protected void injectDependencies(AppComponent appComponent) {
+        appComponent.plus(new YouTubeVideoModule(this)).inject(this);
     }
 
     @Override
@@ -112,32 +115,5 @@ public class YoutubeVideoActivity extends YouTubeBaseActivity
     public void cueVideo(String videoId) {
         this.videoId = videoId;
         youTubeView.initialize(Keys.YOUTUBE_API, this);
-    }
-
-    @Override
-    public void showProgress() {
-        progressDialog.show();
-    }
-
-    @Override
-    public void hideProgress() {
-        progressDialog.dismiss();
-    }
-
-    @Override
-    public void showMessage(@IdRes int resId) {
-        MessageUtils.showMessage(this, resId);
-    }
-
-    @Override
-    public void showMessage(String message) {
-        MessageUtils.showMessage(this, message);
-    }
-
-    private void initProgressDialog() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.forecast_loading));
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setCancelable(false);
     }
 }
