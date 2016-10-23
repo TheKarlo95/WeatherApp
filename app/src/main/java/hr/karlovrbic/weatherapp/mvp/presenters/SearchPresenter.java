@@ -1,7 +1,5 @@
 package hr.karlovrbic.weatherapp.mvp.presenters;
 
-import android.os.Bundle;
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -16,9 +14,6 @@ import hr.karlovrbic.weatherapp.utils.Objects;
  */
 public class SearchPresenter implements ISearch.Presenter {
 
-    private static final String CITY_INPUT = "city_input";
-    private static final String COUNTRY_INPUT = "country_input";
-
     private ISearch.View view;
 
     private Map<String, String> countries;
@@ -30,16 +25,6 @@ public class SearchPresenter implements ISearch.Presenter {
         for (String iso : Locale.getISOCountries()) {
             Locale l = new Locale("", iso);
             countries.put(l.getDisplayCountry(), iso);
-        }
-    }
-
-    @Override
-    public void init(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            String city = savedInstanceState.getString(CITY_INPUT);
-            String country = savedInstanceState.getString(COUNTRY_INPUT);
-            view.setCityInputText(city);
-            view.setCountryInputText(country);
         }
     }
 

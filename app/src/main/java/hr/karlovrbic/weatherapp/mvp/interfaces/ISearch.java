@@ -1,7 +1,5 @@
 package hr.karlovrbic.weatherapp.mvp.interfaces;
 
-import android.os.Bundle;
-
 import hr.karlovrbic.weatherapp.model.City;
 
 /**
@@ -15,15 +13,9 @@ public interface ISearch {
         void startForecastActivity(City city);
 
         void displayCityInputError();
-
-        void setCityInputText(String city);
-
-        void setCountryInputText(String country);
     }
 
     interface Presenter extends IBase.Presenter {
-        void init(Bundle savedInstanceState);
-
         void showForecast(String cityName, String countryName);
     }
 }
