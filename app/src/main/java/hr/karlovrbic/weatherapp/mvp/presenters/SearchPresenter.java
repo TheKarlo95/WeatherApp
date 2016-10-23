@@ -60,7 +60,7 @@ public class SearchPresenter implements ISearch.Presenter {
     public void cancel() {
     }
 
-    public boolean validateCityInput(String cityName) {
+    private boolean validateCityInput(String cityName) {
         if (cityName == null || cityName.isEmpty()) {
             view.displayCityInputError();
             return false;
