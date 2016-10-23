@@ -81,6 +81,13 @@ public class ForecastActivity extends BaseActivity implements IForecast.View {
     }
 
     @Override
+    public void onStop() {
+        presenter.cancel();
+        hideProgress();
+        super.onStop();
+    }
+
+    @Override
     public void setForecasts(List<Forecast> forecasts) {
         if (rvForecasts != null) {
             adapter = new ForecastAdapter(this, forecasts);

@@ -76,6 +76,20 @@ public class YoutubeVideoActivity extends YouTubeBaseActivity
     }
 
     @Override
+    public void onStop() {
+        presenter.cancel();
+        hideProgress();
+        super.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RECOVERY_REQUEST) {
+            youTubeView.initialize(Keys.YOUTUBE_API, this);
+        }
+    }
+
+    @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
         if (!wasRestored) {
             if (videoId != null) {
@@ -91,13 +105,6 @@ public class YoutubeVideoActivity extends YouTubeBaseActivity
         } else {
             String error = getString(R.string.youtube_video_player_error, errorReason.toString());
             Toast.makeText(this, error, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RECOVERY_REQUEST) {
-            youTubeView.initialize(Keys.YOUTUBE_API, this);
         }
     }
 

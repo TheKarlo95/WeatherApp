@@ -56,8 +56,6 @@ public class SearchActivity extends BaseActivity implements ISearch.View {
         setToolbar(toolbar, false);
         presenter = new SearchPresenter(this);
 
-        presenter.init(savedInstanceState);
-
         etCountry.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -68,6 +66,13 @@ public class SearchActivity extends BaseActivity implements ISearch.View {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onStop() {
+        presenter.cancel();
+        hideProgress();
+        super.onStop();
     }
 
     @Override
@@ -92,16 +97,6 @@ public class SearchActivity extends BaseActivity implements ISearch.View {
     public void displayCityInputError() {
         tilCity.setError(getString(R.string.search_error_message_city));
         requestFocus(etCity);
-    }
-
-    @Override
-    public void setCityInputText(String city) {
-        etCity.setText(city);
-    }
-
-    @Override
-    public void setCountryInputText(String country) {
-        etCountry.setText(country);
     }
 
     private void requestFocus(View view) {
