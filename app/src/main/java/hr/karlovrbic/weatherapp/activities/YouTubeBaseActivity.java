@@ -14,7 +14,6 @@ import hr.karlovrbic.weatherapp.utils.MessageUtils;
 /**
  * Created by TheKarlo95 on 23.10.2016..
  */
-
 public abstract class YouTubeBaseActivity extends com.google.android.youtube.player.YouTubeBaseActivity
         implements IBase.View {
     private ProgressDialog progressDialog;
