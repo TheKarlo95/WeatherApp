@@ -1,6 +1,8 @@
 package hr.karlovrbic.weatherapp.mvp.interactors;
 
 import hr.karlovrbic.weatherapp.Keys;
+import hr.karlovrbic.weatherapp.R;
+import hr.karlovrbic.weatherapp.WeatherApp;
 import hr.karlovrbic.weatherapp.model.Forecast;
 import hr.karlovrbic.weatherapp.model.response.CurrentWeatherResponse;
 import hr.karlovrbic.weatherapp.mvp.interfaces.IForecast;
@@ -39,7 +41,7 @@ public class CurrentWeatherInteractor implements IForecast.CurrentWeatherInterac
 
                     @Override
                     public void onError(Throwable e) {
-                        listener.onError(e.getMessage());
+                        listener.onError(WeatherApp.get().getString(R.string.current_weather_interactor_error));
                     }
 
                     @Override

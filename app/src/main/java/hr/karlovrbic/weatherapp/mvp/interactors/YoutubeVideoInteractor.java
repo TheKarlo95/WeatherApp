@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import hr.karlovrbic.weatherapp.Keys;
+import hr.karlovrbic.weatherapp.R;
+import hr.karlovrbic.weatherapp.WeatherApp;
 import hr.karlovrbic.weatherapp.mvp.interfaces.IYoutubeVideo;
 import hr.karlovrbic.weatherapp.network.ApiManager;
 import hr.karlovrbic.weatherapp.network.ResponseListener;
@@ -36,11 +38,12 @@ public class YoutubeVideoInteractor implements IYoutubeVideo.Interactor {
                     }
                 }).setApplicationName("weather-app").build();
 
-        YouTube.Search.List search = null;
+        YouTube.Search.List search;
         try {
             search = youtube.search().list("id,snippet");
         } catch (IOException ioe) {
-            listener.onError(ioe.getMessage());
+            listener.onError(WeatherApp.get().getString(R.string.youtube_video_interactor_error));
+            return;
         }
         search.setKey(Keys.YOUTUBE_API);
         search.setQ(keywords);
@@ -60,7 +63,7 @@ public class YoutubeVideoInteractor implements IYoutubeVideo.Interactor {
 
                     @Override
                     public void onError(Throwable e) {
-                        listener.onError(e.getMessage());
+                        listener.onError(WeatherApp.get().getString(R.string.youtube_video_interactor_error));
                     }
 
                     @Override
@@ -86,7 +89,7 @@ public class YoutubeVideoInteractor implements IYoutubeVideo.Interactor {
 
         private YouTube.Search.List search;
 
-        public SearchCall(YouTube.Search.List search) {
+        SearchCall(YouTube.Search.List search) {
             this.search = search;
         }
 
