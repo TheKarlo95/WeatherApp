@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "hr.karlovrbic.weatherapp"
         minSdkVersion 18
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -33,17 +33,24 @@ dependencies {
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'org.robolectric:robolectric:3.1.2'
     // support
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.android.support:cardview-v7:24.2.1'
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    // butterknife
-    apt 'com.jakewharton:butterknife-compiler:8.1.0'
-    compile 'com.jakewharton:butterknife:8.1.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.android.support:cardview-v7:25.0.0'
+    compile 'com.android.support:support-v4:25.0.0'
+    compile 'com.android.support:design:25.0.0'
     // apache-commons
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'org.jetbrains:annotations-java5:15.0'
+    // butterknife
+    apt 'com.jakewharton:butterknife-compiler:8.1.0'
+    compile 'com.jakewharton:butterknife:8.1.0'
+    // dagger 2
+    compile 'com.google.dagger:dagger:2.7'
+    apt 'com.google.dagger:dagger-compiler:2.7'
+    // glide
+    compile 'com.github.bumptech.glide:glide:3.6.0'
+    // gson
+    compile 'com.google.code.gson:gson:2.4'
     // okhttp3
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
@@ -56,13 +63,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'io.reactivex:rxjava-async-util:0.21.0'
-    // gson
-    compile 'com.google.code.gson:gson:2.4'
-    // glide
-    compile 'com.github.bumptech.glide:glide:3.6.0'
-    // youtube
-    // compile files('libs/YouTubeAndroidPlayerApi.jar')
-    // Library for using Youtube data api
+    // youtube data api
     compile('com.google.apis:google-api-services-youtube:v3-rev120-1.19.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
