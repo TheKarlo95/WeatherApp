@@ -1,5 +1,7 @@
 package hr.karlovrbic.weatherapp.mvp.presenters;
 
+import hr.karlovrbic.weatherapp.R;
+import hr.karlovrbic.weatherapp.WeatherApp;
 import hr.karlovrbic.weatherapp.mvp.interactors.YoutubeVideoInteractor;
 import hr.karlovrbic.weatherapp.mvp.interfaces.IYoutubeVideo;
 import hr.karlovrbic.weatherapp.network.ResponseListener;
@@ -8,7 +10,6 @@ import hr.karlovrbic.weatherapp.utils.Objects;
 /**
  * Created by TheKarlo95 on 19.10.2016..
  */
-
 public class YoutubeVideoPresenter implements IYoutubeVideo.Presenter {
 
     private IYoutubeVideo.View view;
@@ -29,8 +30,8 @@ public class YoutubeVideoPresenter implements IYoutubeVideo.Presenter {
                 if(videoId != null) {
                     view.cueVideo(videoId);
                 } else {
-                    view.showMessage("No videos found");
-                    view.goBack();
+                    view.showMessage(WeatherApp.get().getString(R.string.youtube_video_presenter_no_videos_error));
+                    view.onBackPressed();
                 }
                 view.hideProgress();
             }
@@ -39,6 +40,7 @@ public class YoutubeVideoPresenter implements IYoutubeVideo.Presenter {
             public void onError(String message) {
                 view.showMessage(message);
                 view.hideProgress();
+                view.onBackPressed();
             }
         });
     }
