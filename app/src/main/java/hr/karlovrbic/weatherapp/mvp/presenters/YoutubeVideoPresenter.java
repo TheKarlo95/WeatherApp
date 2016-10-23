@@ -42,4 +42,9 @@ public class YoutubeVideoPresenter implements IYoutubeVideo.Presenter {
             }
         });
     }
+
+    @Override
+    public void cancel() {
+        interactor.cancel();
+    }
 }
