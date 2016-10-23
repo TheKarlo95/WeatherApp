@@ -1,7 +1,5 @@
 package hr.karlovrbic.weatherapp.mvp.interfaces;
 
-import android.support.annotation.IdRes;
-
 import java.util.List;
 
 import hr.karlovrbic.weatherapp.model.City;
@@ -21,19 +19,9 @@ public interface IForecast {
         void onShowVideoClick();
 
         void startVideoActivity(String keywords);
-
-        void showMessage(@IdRes int resId);
-
-        void showMessage(String message);
-
-        void showProgress();
-
-        void hideProgress();
     }
 
     interface Presenter extends IBase.Presenter {
-        void cancel();
-
         void showVideo(String cityName, String weatherDescription);
 
         void getForecast(City city);
