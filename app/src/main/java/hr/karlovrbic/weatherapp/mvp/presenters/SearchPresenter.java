@@ -21,7 +21,7 @@ public class SearchPresenter implements ISearch.Presenter {
 
     private ISearch.View view;
 
-    Map<String, String> countries;
+    private Map<String, String> countries;
 
     public SearchPresenter(ISearch.View view) {
         this.view = Objects.requireNonNull(view, "Parameter view cannnot be null");
@@ -54,6 +54,10 @@ public class SearchPresenter implements ISearch.Presenter {
 
             view.startForecastActivity(city);
         }
+    }
+
+    @Override
+    public void cancel() {
     }
 
     public boolean validateCityInput(String cityName) {
