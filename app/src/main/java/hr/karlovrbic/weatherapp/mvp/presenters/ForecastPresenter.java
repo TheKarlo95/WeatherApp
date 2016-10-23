@@ -70,6 +70,7 @@ public class ForecastPresenter implements IForecast.Presenter {
             public void onError(String message) {
                 view.showMessage(message);
                 view.hideProgress();
+                view.onBackPressed();
             }
         });
         currentWeatherInteractor.getCurrentWeather(cityName, countryName, new ResponseListener<Forecast>() {
@@ -83,6 +84,7 @@ public class ForecastPresenter implements IForecast.Presenter {
             public void onError(String message) {
                 view.showMessage(message);
                 view.hideProgress();
+                view.onBackPressed();
             }
         });
     }
