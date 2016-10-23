@@ -1,7 +1,5 @@
 package hr.karlovrbic.weatherapp.mvp.interactors;
 
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
@@ -10,11 +8,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import javax.inject.Inject;
+
 import hr.karlovrbic.weatherapp.Keys;
 import hr.karlovrbic.weatherapp.R;
 import hr.karlovrbic.weatherapp.WeatherApp;
 import hr.karlovrbic.weatherapp.mvp.interfaces.IYoutubeVideo;
-import hr.karlovrbic.weatherapp.network.ApiManager;
 import hr.karlovrbic.weatherapp.network.ResponseListener;
 import rx.Observable;
 import rx.Subscriber;
@@ -27,17 +26,16 @@ import rx.schedulers.Schedulers;
  */
 public class YoutubeVideoInteractor implements IYoutubeVideo.Interactor {
 
+    private YouTube youtube;
     private Subscription subscription;
+
+    @Inject
+    public YoutubeVideoInteractor(YouTube youtube) {
+        this.youtube = youtube;
+    }
 
     @Override
     public void getVideo(String keywords, final ResponseListener<String> listener) {
-        YouTube youtube = new YouTube.Builder(ApiManager.HTTP_TRANSPORT,
-                ApiManager.JSON_FACTORY,
-                new HttpRequestInitializer() {
-                    public void initialize(HttpRequest request) throws IOException {
-                    }
-                }).setApplicationName("weather-app").build();
-
         YouTube.Search.List search;
         try {
             search = youtube.search().list("id,snippet");

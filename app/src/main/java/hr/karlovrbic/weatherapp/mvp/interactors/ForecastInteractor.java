@@ -2,14 +2,16 @@ package hr.karlovrbic.weatherapp.mvp.interactors;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import hr.karlovrbic.weatherapp.Keys;
 import hr.karlovrbic.weatherapp.R;
 import hr.karlovrbic.weatherapp.WeatherApp;
 import hr.karlovrbic.weatherapp.model.Forecast;
 import hr.karlovrbic.weatherapp.model.response.ForecastsResponse;
 import hr.karlovrbic.weatherapp.mvp.interfaces.IForecast;
-import hr.karlovrbic.weatherapp.network.ApiManager;
 import hr.karlovrbic.weatherapp.network.ResponseListener;
+import hr.karlovrbic.weatherapp.network.WeatherService;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -21,7 +23,13 @@ import rx.schedulers.Schedulers;
  */
 public class ForecastInteractor implements IForecast.ForecastInteractor {
 
+    private WeatherService service;
     private Subscription subscription;
+
+    @Inject
+    public ForecastInteractor(WeatherService service) {
+        this.service = service;
+    }
 
     @Override
     public void getForecast(String city, String country, final ResponseListener<List<Forecast>> listener) {
@@ -31,7 +39,7 @@ public class ForecastInteractor implements IForecast.ForecastInteractor {
         }
 
         final Observable<ForecastsResponse> weatherResponse =
-                ApiManager.getService().getForecasts(cityAndCountry, "4", Keys.OPEN_WEATHER_KEY);
+                service.getForecasts(cityAndCountry, "4", Keys.OPEN_WEATHER_KEY);
 
 
         subscription = weatherResponse
