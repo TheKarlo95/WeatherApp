@@ -108,11 +108,6 @@ public class YoutubeVideoActivity extends YouTubeBaseActivity
     }
 
     @Override
-    public void goBack() {
-        onBackPressed();
-    }
-
-    @Override
     public void showProgress() {
         progressDialog.show();
     }
