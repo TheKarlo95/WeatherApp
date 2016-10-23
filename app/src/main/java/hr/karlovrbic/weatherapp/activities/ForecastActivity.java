@@ -1,12 +1,9 @@
 package hr.karlovrbic.weatherapp.activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -25,7 +22,7 @@ import hr.karlovrbic.weatherapp.mvp.presenters.ForecastPresenter;
 import hr.karlovrbic.weatherapp.recyclerview.adapter.ForecastAdapter;
 import hr.karlovrbic.weatherapp.utils.MessageUtils;
 
-public class ForecastActivity extends AppCompatActivity implements IForecast.View {
+public class ForecastActivity extends BaseActivity implements IForecast.View {
 
     public static final String KEYWORDS_EXTRAS_KEY = "keywords";
     private static final String FORECASTS_KEY = "forecasts";
@@ -37,7 +34,6 @@ public class ForecastActivity extends AppCompatActivity implements IForecast.Vie
     @BindView(R.id.forecast_tv_city)
     TextView tvCity;
 
-    private ProgressDialog progressDialog;
     private IForecast.Presenter presenter;
 
     private ForecastAdapter adapter;
@@ -47,13 +43,13 @@ public class ForecastActivity extends AppCompatActivity implements IForecast.Vie
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
 
         ButterKnife.bind(this);
 
-        initUI();
+        setToolbar(toolbar, true);
         presenter = new ForecastPresenter(this);
 
         if (savedInstanceState == null) {
@@ -121,16 +117,6 @@ public class ForecastActivity extends AppCompatActivity implements IForecast.Vie
     }
 
     @Override
-    public void showProgress() {
-        progressDialog.show();
-    }
-
-    @Override
-    public void hideProgress() {
-        progressDialog.dismiss();
-    }
-
-    @Override
     public void showMessage(@IdRes int resId) {
         MessageUtils.showMessage(this, resId);
     }
@@ -138,22 +124,5 @@ public class ForecastActivity extends AppCompatActivity implements IForecast.Vie
     @Override
     public void showMessage(String message) {
         MessageUtils.showMessage(this, message);
-    }
-
-    private void initUI() {
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        initProgressDialog();
-    }
-
-    private void initProgressDialog() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.forecast_loading));
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setCancelable(false);
     }
 }

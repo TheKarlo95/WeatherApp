@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,7 +21,7 @@ import hr.karlovrbic.weatherapp.model.City;
 import hr.karlovrbic.weatherapp.mvp.interfaces.ISearch;
 import hr.karlovrbic.weatherapp.mvp.presenters.SearchPresenter;
 
-public class SearchActivity extends AppCompatActivity implements ISearch.View {
+public class SearchActivity extends BaseActivity implements ISearch.View {
 
     public static final String CITY_EXTRAS_KEY = "city";
 
@@ -48,18 +47,18 @@ public class SearchActivity extends AppCompatActivity implements ISearch.View {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
+        setToolbar(toolbar, false);
         presenter = new SearchPresenter(this);
 
         presenter.init(savedInstanceState);
 
-        etCity.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+        etCountry.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -104,7 +103,6 @@ public class SearchActivity extends AppCompatActivity implements ISearch.View {
     public void setCountryInputText(String country) {
         etCountry.setText(country);
     }
-
 
     private void requestFocus(View view) {
         if (view.requestFocus()) {
