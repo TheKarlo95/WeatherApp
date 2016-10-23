@@ -1,7 +1,5 @@
 package hr.karlovrbic.weatherapp.mvp.interfaces;
 
-import android.support.annotation.IdRes;
-
 import hr.karlovrbic.weatherapp.network.ResponseListener;
 
 /**
@@ -12,16 +10,6 @@ public interface IYoutubeVideo {
 
     interface View extends IBase.View {
         void cueVideo(String videoId);
-
-        void showMessage(@IdRes int resId);
-
-        void showMessage(String message);
-
-        void showProgress();
-
-        void hideProgress();
-
-        void goBack();
     }
 
     interface Presenter extends IBase.Presenter {
